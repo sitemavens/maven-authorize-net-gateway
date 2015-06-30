@@ -111,7 +111,6 @@ class AuthorizeNetGateway extends \Maven\Gateways\Gateway {
 		
 		
 		$response = wp_remote_post( $this->getFullUrl() );
-
 		if ( is_wp_error( $response ) ) {
 
 			$errorDescription = "";
@@ -126,7 +125,8 @@ class AuthorizeNetGateway extends \Maven\Gateways\Gateway {
 			$this->setRawResponse( $body );
 
 			$responseFields = explode( $this->getItemDelimiter(), $body );
-
+			$this->responseFields = $responseFields;
+			do_action('maven-gateway-debug', $this);
 			$this->setStatus( $responseFields );
 		}
 	}
